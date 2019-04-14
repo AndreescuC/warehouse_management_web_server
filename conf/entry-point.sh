@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker-php-entrypoint && php /var/www/html/bin/console worker:start
+php /var/www/html/bin/console worker:start && apache2-foreground

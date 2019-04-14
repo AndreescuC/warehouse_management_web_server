@@ -33,4 +33,6 @@ RUN a2enmod rewrite
 
 COPY conf/entry-point.sh /entry-point.sh
 
-ENTRYPOINT ["/entry-point.sh"]
+#ENTRYPOINT ["/entry-point.sh"]
+
+CMD ["/entry-point.sh"]
