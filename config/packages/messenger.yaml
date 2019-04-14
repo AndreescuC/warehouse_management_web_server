@@ -1,0 +1,10 @@
+framework:
+  messenger:
+    transports:
+      amqp_shipment: "%env(MESSENGER_TRANSPORT_DSN_SHIPMENT)%"
+      amqp_order: "%env(MESSENGER_TRANSPORT_DSN_ORDER)%"
+      amqp_order_done: "%env(MESSENGER_TRANSPORT_DSN_ORDER_DONE)%"
+    routing:
+      'App\Service\Message\RabbitMqMessageShipment': amqp_shipment
+      'App\Service\Message\RabbitMqMessageOrder': amqp_order
+      'App\Service\Message\RabbitMqMessageOrderDone': amqp_order_done
