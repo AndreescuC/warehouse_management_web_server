@@ -15,6 +15,7 @@ class StartWorkerCommand extends Command
     {
         $consumers = ['amqp_order', 'amqp_order_done'];
 
+        sleep(20);
         foreach ($consumers as $consumer) {
             $output->writeln("Consumer worker started!\n");
 
