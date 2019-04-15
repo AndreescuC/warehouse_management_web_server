@@ -95,6 +95,13 @@ class AjaxController extends AbstractController
         $warehouseName = $request->get('warehouse');
         $shipmentId    = $request->get('id');
 
+        $orders = $this->dbAdaptor->getOrdersByShipment($shipmentId);
+        foreach ($orders as $order) {
+            foreach ($this->dbAdaptor->getOrderLinesByOrder($order['id']) as $orderLine) {
+                $this->dbAdaptor->removeOneById('order_line', $orderLine['id']);
+            }
+            $this->dbAdaptor->removeOneById('order_header', $order['id']);
+        }
         $this->dbAdaptor->removeOneById('shipment', $shipmentId);
 
         return $this->render('shipments.twig', [

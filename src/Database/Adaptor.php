@@ -189,7 +189,11 @@ class Adaptor
             }
         }
 
-        return $stmt->fetchAll();
+        try {
+            return $stmt->fetchAll();
+        } catch (\Exception $e) {
+            return $outArguments;
+        }
     }
 
     private function callProcedure(string $call)
@@ -222,5 +226,19 @@ class Adaptor
         }
 
         return $filteredOrders;
+    }
+
+    public function getOrderLinesByOrder(int $orderId)
+    {
+        $orderLines = $this->fetchAll('order_line');
+
+        $filteredOrdersLines = [];
+        foreach ($orderLines as $orderLine) {
+            if ($orderLine['order_header_id'] == $orderId) {
+                $filteredOrdersLines[] = $orderLine;
+            }
+        }
+
+        return $filteredOrdersLines;
     }
 }
